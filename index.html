@@ -12,8 +12,18 @@
 
 <body>
   <div id="app">
-      <div>{{ counter }}</div>
-      <button @click="increment">Increment</button>
+      <div>Price {{ price }}$</div>
+
+      <div>Tax Rate {{ taxRate }}%</div>
+
+       <div>With VAT {{ includingVat }}%</div> 
+
+       <div>With VAT {{ includingVatM() }}%</div> 
+       
+
+      <div>Items {{ items }}</div>      
+
+      <div>Items with VAT {{ total }}</div>
   </div>
 </body>
 
