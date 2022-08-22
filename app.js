@@ -1,7 +1,12 @@
 const app = Vue.createApp({
     data() {
         return  {
-            name: 'Gaurang'
+            counter:0
+        }
+    },
+    methods: {
+        increment() {
+            this.counter++;
         }
     }
 });
