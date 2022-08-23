@@ -8,10 +8,42 @@
   <title>Vue 3 App Instance</title>
   <script src="https://unpkg.com/vue@next"></script>
   <script src="app.js" defer></script>
+  <style type="text/css">
+    body,
+    input,
+    button {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      font-size: 40pt;
+    }
+
+    div {
+      padding: 0.3rem;
+    }
+  </style>
 </head>
 
 <body>
-  <div id="app">      
+  <div id="app">
+    <p v-if="!started">
+        {{ icons.rocket }} Let's start the test!
+    </p>
+    <div v-else>You've started!
+        <div v-if="vegetarian && isReallyVegetarian">
+            you are a vage, 5% of people in the {{ icons.us }} are vage, and 20%-40% people in {{ icons.india }} are vage.
+         </div>
+         <div v-else-if="realvegetarian">
+            {{ icons.vege }} I am vegetarian only
+         </div>        
+
+         <div v-else-if="vegetarian">
+            {{ icons.fish }} you seem to be a pescatarian
+         </div>
+        <div v-else>
+            {{ icons.meat }} You enjoy eating the meat
+        </div>
+
+    </div>
+    
   </div>
 </body>
 
