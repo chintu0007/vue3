@@ -24,25 +24,45 @@
 
 <body>
   <div id="app">
-    <p v-if="!started">
-        {{ icons.rocket }} Let's start the test!
-    </p>
-    <div v-else>You've started!
-        <div v-if="vegetarian && isReallyVegetarian">
-            you are a vage, 5% of people in the {{ icons.us }} are vage, and 20%-40% people in {{ icons.india }} are vage.
-         </div>
-         <div v-else-if="realvegetarian">
-            {{ icons.vege }} I am vegetarian only
-         </div>        
-
-         <div v-else-if="vegetarian">
-            {{ icons.fish }} you seem to be a pescatarian
-         </div>
-        <div v-else>
-            {{ icons.meat }} You enjoy eating the meat
+        <div>
+            <label for="riddle1">interpolation also called</label>
+            <input type="text" v-model="riddle1" id="riddle1" value="whatever">
         </div>
+        <div v-if="level1">
+            <label for="riddle2">what's the current Vue Version?</label>
+            <input type="number" v-model="riddle2" id="riddle2">
+        </div>
+        <div v-if="level2">              
+                <div>                    
+                    <input type="checkbox" v-model="riddle3" id="riddle3a" value="Reactive"> 
+                    <label for="riddle3a">Reactive</label>
+                </div>
 
-    </div>
+                <div>
+                    <input type="checkbox" v-model="riddle3" id="riddle3b" value="Computed">
+                    <label for="riddle3b">Computed</label>
+                </div>
+
+                <div >
+                    <input type="checkbox" v-model="riddle3" id="riddle3c" value="Method">
+                    <label for="riddle3c">Method</label>
+                </div>
+
+                <div>
+                    <input type="checkbox" v-model="riddle3" id="riddle3d" value="Variable">     
+                    <label for="riddle3d">Variable</label>
+                </div>
+
+                <div v-if="level3">
+                    <input type="checkbox" v-model="ready" id="ready">     
+                    <label for="ready">Ready?</label>
+                </div>
+
+                <div v-if="level3 && ready">
+                    Worldstars!!!
+                </div>
+
+        </div>
     
   </div>
 </body>

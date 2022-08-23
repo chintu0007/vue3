@@ -1,30 +1,25 @@
-const icons = {
-    rocket: '🚀',
-    meat: '🥩',
-    fish: '🐟',
-    us: '🇺🇸',
-    india: '🇮🇳',
-    vege: '🌱'
-  };
-  
-  const vm = Vue.createApp({
-    data() {
-      return {
-        started: false,
-        vegetarian: false,
-        realvegetarian: true,
-        basket: [
-          'Milk',
-          'Cheese',
-          'Carrot',
-          'Fish'
-        ]
-      }
+const vm = Vue.createApp({
+  data() {
+    return {
+        riddle1:null,
+        riddle2: "watever",
+        riddle3: [],
+        ready:false
+
+    };
+  },
+  computed: {
+    level1() {
+         return this.riddle1 === "mustache"; 
     },
-    computed: {
-      icons() { return icons },
-      isReallyVegetarian() {
-        return !this.basket.includes('Fish');
-      },
-    }
-  }).mount('#app');
+    level2() {
+        return this.level1 &&  this.riddle2===3;
+    },
+    level3() {
+        return this.level2 && !this.riddle3.includes('Variable') 
+            && this.riddle3.length === 3;
+    },
+
+
+  }
+}).mount("#app");
