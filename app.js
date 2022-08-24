@@ -1,22 +1,15 @@
 const vm = Vue.createApp({
-  data() {
-    return {
-      step: 1,
-    };
-  },
-  methods: {
-    nextStep(event) {
-        if(event) {
-            console.log(event);
-        }
-        this.step++;
+    data() {
+      return {
+        visible: true
+      }
     },
-    log(msg, event) {
-         console.log(msg);
-         if(event) {
-            console.log(event);
-         }
+    methods: {
+      log(msg) {
+        console.log(msg);
+      },
+      hide() {
+        this.visible = false;
+      }
     }
-  }    
-
-}).mount("#app");
+  }).mount('#app');
