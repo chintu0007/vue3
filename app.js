@@ -1,22 +1,24 @@
 const vm = Vue.createApp({
   data() {
     return {
-      step: 1,
+      isUnderlined: false,
+      isBigFont: false,
+      isRed: false,
+      highlightClass: "under-line",
+      errorClass: "red",
+      theText : "",
     };
   },
-  methods: {
-    nextStep(event) {
-        if(event) {
-            console.log(event);
-        }
-        this.step++;
+  computed: {
+    classes() {
+      return {
+        red: this.isRed,
+        'under-line': this.isUnderlined,
+        bigfont: this.isBigFont,
+      };
     },
-    log(msg, event) {
-         console.log(msg);
-         if(event) {
-            console.log(event);
-         }
-    }
-  }    
-
+    isOk() {
+        return this.theText === 'okay'; 
+    } 
+  },
 }).mount("#app");
