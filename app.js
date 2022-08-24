@@ -1,25 +1,22 @@
 const vm = Vue.createApp({
   data() {
     return {
-        riddle1:null,
-        riddle2: "watever",
-        riddle3: [],
-        ready:false
-
+      step: 1,
     };
   },
-  computed: {
-    level1() {
-         return this.riddle1 === "mustache"; 
+  methods: {
+    nextStep(event) {
+        if(event) {
+            console.log(event);
+        }
+        this.step++;
     },
-    level2() {
-        return this.level1 &&  this.riddle2===3;
-    },
-    level3() {
-        return this.level2 && !this.riddle3.includes('Variable') 
-            && this.riddle3.length === 3;
-    },
+    log(msg, event) {
+         console.log(msg);
+         if(event) {
+            console.log(event);
+         }
+    }
+  }    
 
-
-  }
 }).mount("#app");

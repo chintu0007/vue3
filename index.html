@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vue 3 App Instance</title>
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+  <title>Vue 3 Event Handling</title>
   <script src="https://unpkg.com/vue@next"></script>
   <script src="app.js" defer></script>
   <style type="text/css">
@@ -13,7 +14,7 @@
     input,
     button {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-      font-size: 40pt;
+      font-size: 20pt;
     }
 
     div {
@@ -24,47 +25,61 @@
 
 <body>
   <div id="app">
+    <div v-show="step==1">
         <div>
-            <label for="riddle1">interpolation also called</label>
-            <input type="text" v-model="riddle1" id="riddle1" value="whatever">
+            <label for="">Using an inline expression as event handler</label>
         </div>
-        <div v-if="level1">
-            <label for="riddle2">what's the current Vue Version?</label>
-            <input type="number" v-model="riddle2" id="riddle2">
+        <div>
+            <button v-on:click="nextStep($event)">Go to Step</button>
+        </div>       
+        
+    </div>
+
+    <div v-show="step==2">
+        <div>
+            <label for="">Calling a method in event handler</label>
         </div>
-        <div v-if="level2">              
-                <div>                    
-                    <input type="checkbox" v-model="riddle3" id="riddle3a" value="Reactive"> 
-                    <label for="riddle3a">Reactive</label>
-                </div>
+        <div>
+            <button v-on:click="nextStep($event), log('@click step 2 ', event)">Go to Next Step</button>
+        </div>
+    </div>
+    <div v-show="step==3">
+            <form @submit.prevent="log('@submit')">
 
                 <div>
-                    <input type="checkbox" v-model="riddle3" id="riddle3b" value="Computed">
-                    <label for="riddle3b">Computed</label>
+                    <div>
+                        <label for="firstName">First Name</label>
+                    </div>
+                    <div>
+                        <input type="text" id="firstName" @change="log('@change firstName')">
+                    </div>
                 </div>
-
-                <div >
-                    <input type="checkbox" v-model="riddle3" id="riddle3c" value="Method">
-                    <label for="riddle3c">Method</label>
-                </div>
-
                 <div>
-                    <input type="checkbox" v-model="riddle3" id="riddle3d" value="Variable">     
-                    <label for="riddle3d">Variable</label>
+                    <div>
+                        <label for="lastName">Last Name</label>
+                    </div>
+                    <div>
+                        <input type="text" id="lastName"                        
+                        @change="log('@change firstName')"
+                        @input = "log('@input lastName')"
+                        @keydown = "log('@keydown lastName')"
+                        @keyup = "log('@keyup lastName')"
+                        >
+                    </div>
                 </div>
-
-                <div v-if="level3">
-                    <input type="checkbox" v-model="ready" id="ready">     
-                    <label for="ready">Ready?</label>
+                
+                <div>
+                    <div>
+                        <input type="submit" value="save"></input>
+                        <button type="submit"
+                        @mouseover="log('@mouseover button')"
+                        @mouseleave="log('@mouseleave button')"
+                        @click="log('I am a dummy button')"
+                        >Dummy</button>                                                
+                    </div>
                 </div>
-
-                <div v-if="level3 && ready">
-                    Worldstars!!!
-                </div>
-
-        </div>
-    
-  </div>
+            </form>        
+    </div>
+  </div>    
 </body>
-
 </html>
