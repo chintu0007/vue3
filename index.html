@@ -1,46 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3 Event Handling</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="app.js" defer></script>
+    <style type="text/css">
+      body,
+      input,
+      button {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+          "Segoe UI Symbol";
+        font-size: 40pt;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0">
-  <title>Vue 3 Event Handling</title>
-  <script src="https://unpkg.com/vue@next"></script>
-  <script src="app.js" defer></script>
-  <style type="text/css">
-    body,
-    input,
-    button {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-      font-size: 40pt;
-    }
+      div {
+        padding: 0.3rem;
+      }
 
-    div {
-      padding: 0.3rem;
-    }
-  </style>
-</head>
+      .page {
+        display: inline-block;
+        border: 1px solid red;
+        width: 1.2em;
+        margin-right: 0.5em;
+        text-align: center;
+      }
+    </style>
+  </head>
 
-<body>
-  <div id="app">   
-    <ul>
+  <body>
+    <div id="app">
+      <ul>
         <li v-for="(item, index) of items">
           {{index + 1}}. {{item.name}} for {{item.price}}
         </li>
       </ul>
-
-
       <div>
         <ul>
-            <li v-for="(country, code, index) in countries">
-               {{ index }}, {{ code }}, {{ country }}
-            </li>
+          <li v-for="(country, code, index) in countries">
+            {{ index }}, {{ code }}, {{ country }}
+          </li>
         </ul>
       </div>
-
-  </div>    
-  
-</body>
+      <div>
+        <div v-for="page in 5" class="page">{{ page +3 }}</div>
+      </div>
+    </div>
+  </body>
 </html>
