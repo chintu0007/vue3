@@ -33,7 +33,9 @@ const app = Vue.createApp({
   },
   computed: {
     displayedTasks() {
-      return this.tasks.filter((task) => !this.onlyPending || !task.done);
+      return [...this.tasks]
+        .sort((a, b) => Number(b.priority) - Number(a.priority))
+        .filter((task) => !this.onlyPending || !task.done);
     },
   },
   methods: {
