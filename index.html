@@ -18,7 +18,7 @@
     <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div class="mb-4">
             <add-task-input @added="taskAdded"></add-task-input>
-            <base-checkbox label="Only Pending tasks" class="mb-4 p-4 text-gray-600 text-sm font-weight-100" v-model="onlyPending"></base-checkbox>
+            <base-checkbox class="mb-4 p-4 text-gray-600 text-sm font-weight-100" v-model="onlyPending"><b>Only Pending tasks</b></base-checkbox>
         </div>        
         <todo-list-item v-for="task in displayedTasks" :task="task" :key="task.id" 
             v-model:done="task.done"
