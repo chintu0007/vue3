@@ -101,7 +101,11 @@ app.component("add-task-input", {
       this.task = "";
     },
   },
+  mounted() {
+    this.$refs.input.focus();
+  },
   template: `<input type="text"
+        ref="input"
         placeholder="Enter task and hit enter"
         @keyup.enter="add" 
         v-model="task"
