@@ -19,11 +19,15 @@
         <div class="mb-4">
             <add-task-input @added="taskAdded"></add-task-input>
             <base-checkbox class="mb-4 p-4 text-gray-600 text-sm font-weight-100" v-model="onlyPending"><b>Only Pending tasks</b></base-checkbox>
-        </div>        
-        <todo-list-item v-for="task in displayedTasks" :task="task" :key="task.id" 
+        </div>      
+
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <todo-list-item v-for="task in displayedTasks" :task="task" :key="task.id" 
             v-model:done="task.done"
             v-model:priority="task.priority">
         </todo-list-item>
+        </div>        
+        
     </div>
   </div>
 </body>
