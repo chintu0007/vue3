@@ -6,68 +6,29 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0">
-  <title>Vue 3 CSS Class Bindings</title>
+  <title>Vue 3 Components</title>
   <script src="https://unpkg.com/vue@next"></script>
+  <link rel="stylesheet"
+    href="https://unpkg.com/tailwindcss@2.2.4/dist/tailwind.css">
   <script src="app.js" defer></script>
-  <style type="text/css">
-    body,
-    input,
-    button {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-      font-size: 16pt;
-    }
-
-    div {
-      padding: 0.3rem;
-    }
-
-    .under-line {
-      text-decoration: underline;
-    }
-
-    .bigfont {
-      font-size: 2em;
-    }
-
-    .red {
-      color: red;
-    }
-
-    .orange {
-      color: orange;
-    }
-
-    .generic {
-        font:1.2em;
-        padding: 10px;
-        outline: none;
-    }
-
-    .okay {
-        border-color:green;
-    }
-
-    .error {
-        border-color:red;
-    }
-
-
-  </style>
 </head>
 
-<body>
-  <div id="app">
-    <div :class="classes">
-      Demo Text
-    </div>
-    <div :class="[highlightClass, errorClass]">
-      Demo Text
-    </div>
+<body class="bg-gray-50 text-gray-800">
+  <div id="app" class="p-8 w-3/4 mx-auto">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div class="mb-4">
+            <add-task-input @added="taskAdded"></add-task-input>
+            <base-checkbox class="mb-4 p-4 text-gray-600 text-sm font-weight-100" v-model="onlyPending"><b>Only Pending tasks</b></base-checkbox>
+        </div>      
 
-        <div>
-            <input type="text" :class="['generic', { okay: isOk, error: !isOk}]" v-model="theText">
-        </div>
-
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <todo-list-item v-for="task in displayedTasks" :task="task" :key="task.id" 
+            v-model:done="task.done"
+            v-model:priority="task.priority">
+        </todo-list-item>
+        </div>        
+        
+    </div>
   </div>
 </body>
 
