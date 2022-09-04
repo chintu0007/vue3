@@ -18,12 +18,13 @@ const routes = [
     component: AboutPageVue,
   },
   {
-    path: "/articles/:id(\\d+)",
+    path: "/articles/:id(\\d*)",
     name: "articles",
     component: ArticlePageVue,
   },
   {
-    path: "/:url(.*)",
+    //path: "/:url(.*)",
+    path: "/:url(.+)?",
     name: "not-found",
     component: NotFoundPageVue,
   },
