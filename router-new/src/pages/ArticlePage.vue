@@ -1,6 +1,6 @@
 <template>
     <div>
-        Article Id parameter vue is  {{ $route.params.id }}
+        Article Id parameter vue is {{ $route.params.id }}
         <div v-if="article">{{ article.title }}</div>
     </div>
 </template>
