@@ -7,34 +7,30 @@
 
 <script>
 
-    const articles = {
-        1: {"title": "the article is 1"},
-        2: {"title": "the article is 2"},
-        3: {"title": "the article is 3"},
-    };
+import { articles } from "./../data";
 
-    export default {
-        data() {
-            return {
-                article: null,
-            }
-        },
-        watch: {
+export default {
+    data() {
+        return {
+            article: null,
+        }
+    },
+    watch: {
         '$route.params': {
-            handler: function (newVal) {                
-                if(undefined === articles[newVal.id]) {
+            handler: function (newVal) {
+                if (undefined === articles[newVal.id]) {
                     return this.$router.puhs({
                         name: "not-found",
                         params: {
-                            url:"wrong",
+                            url: "wrong",
                         },
                     });
-                }   
-                  this.article = articles[newVal.id];               
+                }
+                this.article = articles[newVal.id];
             },
-            immediate:true,
+            immediate: true,
         }
     }
-    };   
+};
 
 </script>
