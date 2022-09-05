@@ -21,6 +21,7 @@ const routes = [
     path: "/articles/:id(\\d*)",
     name: "articles",
     component: ArticlePageVue,
+    props:true
   },
   {
     //path: "/:url(.*)",
