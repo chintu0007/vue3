@@ -18,8 +18,8 @@ export default {
     watch: {
         '$route.params': {
             handler: function (newVal) {
-                if (undefined === articles[newVal.id]) {
-                    return this.$router.puhs({
+                if (undefined !== newVal.id && undefined === articles[newVal.id]) { 
+                    return this.$router.push({
                         name: "not-found",
                         params: {
                             url: "wrong",
