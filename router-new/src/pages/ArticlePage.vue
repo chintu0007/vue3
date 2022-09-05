@@ -1,52 +1,46 @@
-<template>
-    <div>
-        Article Id parameter vue is {{ $route.params.id }}
-        <div v-if="article">{{ article.title }}</div>
+<template>    
+    <div v-if="article">
+      <h3>{{ article.title }}</h3>
+      <div>
+        <RouterLink :to="{ name: 'articles.comments', params: { id } }"
+          >See Comments</RouterLink
+        >
+        |
+        <RouterLink :to="{ name: 'articles.author' }">About Author</RouterLink>
+      </div>
+      <RouterView />
     </div>
-</template>
+  </template>
 
 <script>
-
-import { articles } from "./../data";
-
-export default {
-    props:["id"],
-    data() {
+    import { articles } from "./../data";
+    export default {
+      props: ["id"],
+      data() {
         return {
-            article: null,
-        }
-    },
-    created() {
-
-        //console.log(articles);
-        //console.log(this.$route.params.id);
-        
-        if (undefined === articles[this.id]) {
+          article: null,
+        };
+      },
+      watch: {
+        id() {
+          this.loadArticle();
+        },
+      },
+      created() {
+        this.loadArticle();
+      },
+      methods: {
+        loadArticle() {
+          if (undefined === articles[this.id]) {
             return this.$router.push({
-                name: "not-found",
-                params: {
-                    url: "wrong",
-                },
+              name: "not-found",
+              params: {
+                url: "wrong",
+              },
             });
-        }
-        this.article = articles[this.id];
-    },
-    /*watch: {
-        '$route.params': {
-            handler: function (newVal) {
-                if (undefined !== newVal.id && undefined === articles[newVal.id]) {
-                    return this.$router.push({
-                        name: "not-found",
-                        params: {
-                            url: "wrong",
-                        },
-                    });
-                }
-                this.article = articles[newVal.id];
-            },
-            immediate: true,
-        }
-    }*/
-};
-
-</script>
+          }
+          this.article = articles[this.id];
+        },
+      },
+    };
+    </script>
