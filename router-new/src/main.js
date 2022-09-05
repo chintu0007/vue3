@@ -7,7 +7,8 @@ import ArticlePageVue from "./pages/ArticlePage.vue";
 import NotFoundPageVue from "./pages/NotFoundPage.vue";
 import ArticlesByTagPage from "./pages/ArticlesByTagPage.vue";
 import ArticleCommentList from './pages/ArticlePage/ArticleCommentList.vue'
-import ArticleAuthor from './pages/ArticlePage/ArticleAuthor.vue'
+import ArticleAuthor from './pages/ArticlePage/ArticleAuthor.vue';
+import LoginPage from './pages/LoginPage.vue';
 
 const routes = [
   
@@ -55,6 +56,11 @@ const routes = [
     props: true
   },
   {
+    path: '/login',
+    name: 'login',
+    component: LoginPage,
+  },
+  {
     //path: "/:url(.*)",
     path: "/:url(.+)?",
     name: "not-found",
@@ -65,6 +71,16 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+});
+
+router.beforeEach((to, from) => {
+  console.log(`Global beforeEach, from ${from.name} to ${to.name}`);
+
+  if (['login', 'home', 'about'].includes(to.name)) {
+    return true;
+  }
+
+  return { name: 'login', query: { redirect: to.fullPath } };
 });
 
 const app = createApp(App);
