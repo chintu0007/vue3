@@ -1,4 +1,4 @@
-# vuex
+# sfc
 
 ## Project setup
 ```
