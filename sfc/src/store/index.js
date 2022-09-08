@@ -1,5 +1,11 @@
 import { createStore } from "vuex";
 import { localStoragePlugin } from "./plugins/localStorage";
+import {
+  ADD_TASK,
+  UPDATE_TASK,
+  SET_ONLY_PENDING,
+  SET_ACTIVE_PROJECT,
+} from "./mutation-types";
 
 function getProjectById(state, id) {
   return state.projects.find((project) => project.id === id);
@@ -125,10 +131,10 @@ const store = createStore({
       }
     }
     */
-    addTask(state, payload) {
+    [ADD_TASK](state, payload) {
       getProjectById(state, payload.projectId)?.tasks.push(payload.task);
     },
-    updateTask(state, payload) {
+    [UPDATE_TASK](state, payload) {
       
       const project = getProjectById(state, payload.projectId);
       const taskIndex = project?.tasks?.findIndex(
@@ -139,10 +145,10 @@ const store = createStore({
         project.tasks[taskIndex] = payload.task;
       }
     },
-    setOnlyPending(state, payload) {
+    [SET_ONLY_PENDING](state, payload) {
       state.onlyPending = payload;
     },
-    setActiveProject(state, activeProjectId) {
+    [SET_ACTIVE_PROJECT](state, activeProjectId) {
       state.activeProjectId = activeProjectId;
     },
   },
