@@ -1,26 +1,37 @@
 <!-- eslint-disable prettier/prettier -->
 <!-- eslint-disable prettier/prettier -->
 <template>
-  <div class="mb-4">
-    <AddTaskInput @added="taskAdded"></AddTaskInput>
-    <BaseCheckbox 
-        class="mb-4 p-4 text-gray-600 text-sm font-weight-100" 
-        v-model="onlyPending">
-        <b>Only Pending tasks</b>
-    </BaseCheckbox>
+  <div class="flex flex-col md:flex-row">
+    <div class="
+        w-full
+        md:w-1/3
+        xl:w-1/5
+        mr-4
+        px-0
+        md:px-4
+        mb-4
+        h-full
+        text-lg
+        md:text-sm
+      ">
+      <ProjectList :projects="projects" />
+    </div>
+    <div class="w-full md:w-2/3 xl:w-4/5">
+      <div class="mb-4">
+        <AddTaskInput @added="taskAdded"></AddTaskInput>
+        <BaseCheckbox class="mb-4 p-4 text-gray-600 text-sm font-weight-100" v-model="onlyPending">
+          <b>Only Pending tasks</b>
+        </BaseCheckbox>
+      </div>
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <ToDoListItem v-for="task in displayedTasks" :task="task" :key="task.id" :done="task.done"
+          :priority="task.priority" @update:done="taskUpdated(task, { done: $event })"
+          @update:priority="taskUpdated(task, { priority: $event })">
+        </ToDoListItem>
+      </div>
+      <SummeryLine class="mt-8"></SummeryLine>
+    </div>
   </div>
-  <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-    <ToDoListItem 
-            v-for="task in displayedTasks" 
-            :task="task" 
-            :key="task.id" 
-            :done="task.done"
-            :priority="task.priority"
-            @update:done="taskUpdated(task, { done: $event })"
-            @update:priority="taskUpdated(task, { priority: $event })">
-    </ToDoListItem>
-  </div>
-  <SummeryLine class="mt-8"></SummeryLine>
 </template>
 <script>
 let nextTaskId = 100;
@@ -28,6 +39,7 @@ import AddTaskInput from "./components/AddTaskInput.vue";
 import BaseCheckbox from "./components/BaseCheckbox.vue";
 import ToDoListItem from "./components/ToDoListItem.vue";
 import SummeryLine from "./components/SummeryLine.vue";
+import ProjectList from "./components/ProjectList.vue";
 
 export default {
   name: "App",
@@ -36,13 +48,18 @@ export default {
     BaseCheckbox,
     AddTaskInput,
     SummeryLine,
+    ProjectList,
   },
   data() {
     return {};
   },
   computed: {
+    projects() {
+      return this.$store.getters.projectWithStates;
+    },
     tasks() {
-      return this.$store.state.tasks;
+      //return this.$store.state.tasks;
+      return this.$store.getters.activeProject?.tasks ?? [];
     },
     displayedTasks() {
       return [...this.tasks]
@@ -55,7 +72,7 @@ export default {
       },
       set(newValue) {
         this.$store.commit("setOnlyPending", newValue)
-      },      
+      },
     },
   },
   methods: {
