@@ -1,6 +1,5 @@
 <template>
-    <div
-      class="
+    <div @click="activateProject(project.id)" class="
         rounded-md
         py-2
         px-2
@@ -9,11 +8,9 @@
         flex
         justify-between
         cursor-pointer
-      "
-    >
-      <div>{{ project.name }}</div>
-      <div
-        class="
+      ">
+        <div>{{ project.name }}</div>
+        <div class="
           rounded-lg
           bg-gray-300
           text-gray-800
@@ -21,15 +18,24 @@
           font-normal
           w-8
           text-center
-        "
-      >
-      {{ project.notDoneCount }}        
-      </div>
+        ">
+            {{ project.notDoneCount }}
+        </div>
     </div>
-  </template>
+</template>
   
-  <script>
-  export default {
+<script>
+export default {
     props: { project: Object },
-  };
-  </script>
+    computed: {
+        isActive() {
+            return this.$store.state.activeProjectId === this.project.id;
+        },
+    },
+    methods: {
+        activateProject(projectId) {
+            this.$store.commit("setActiveProject", projectId);
+        },
+    },
+};
+</script>
