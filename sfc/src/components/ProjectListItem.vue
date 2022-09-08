@@ -25,18 +25,17 @@
 </template>
   
 <script>
+import { mapState, mapMutations } from "vuex";
 import { SET_ACTIVE_PROJECT } from "./../store/mutation-types";
+
 export default {
     props: { project: Object },
     computed: {
+        ...mapState(["activeProjectId"]),
         isActive() {
-            return this.$store.state.activeProjectId === this.project.id;
+            return this.activeProjectId === this.project.id;
         },
     },
-    methods: {
-        activateProject(projectId) {
-            this.$store.commit(SET_ACTIVE_PROJECT, projectId);
-        },
-    },
+    methods: mapMutations({ activateProject: SET_ACTIVE_PROJECT }),
 };
 </script>

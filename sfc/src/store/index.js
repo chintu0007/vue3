@@ -111,12 +111,15 @@ const store = createStore({
     activeProject(state) {
       return getProjectById(state, state.activeProjectId);
     },
-    projectWithStates(state) {
+    projectsWithStats(state) {
       return state.projects.map((project) => ({
         id: project.id,
         ...project,
         notDoneCount: project.tasks.filter((task) => !task.done).length,
       }));
+    },
+    activeProjectTasks(_, getters) {
+      return getters.activeProject?.tasks ?? [];
     },
   },
   mutations: {

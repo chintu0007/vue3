@@ -3,7 +3,7 @@
 <template>
   <div class="flex flex-col md:flex-row">
     <div class="
-        w-full
+    w-full
         md:w-1/3
         xl:w-1/5
         mr-4
@@ -47,6 +47,8 @@ import {
   SET_ONLY_PENDING,
 } from "./store/mutation-types";
 
+import { mapGetters, mapState, mapMutations } from "vuex";
+
 export default {
   name: "App",
   components: {
@@ -59,14 +61,29 @@ export default {
   data() {
     return {};
   },
+
+  // computed: mapState([]),
   computed: {
-    projects() {
-      return this.$store.getters.projectWithStates;
-    },
-    tasks() {
-      //return this.$store.state.tasks;
-      return this.$store.getters.activeProject?.tasks ?? [];
-    },
+    ...mapState(["activeProjectId"]),
+    ...mapGetters({
+      projects: "projectsWithStats",
+      // activeProject: "activeProject",
+      tasks: "activeProjectTasks",
+    }),
+    // ...mapState({ activeId: "activeProjectId" }),
+    // ...mapState({
+    // activeId: (state) => state.activeProjectId ?? 1,
+    // activeId(state) {
+    //   this.projects
+    // }
+    // }),
+    // projects() {
+    //   return this.$store.getters.projectsWithStats;
+    // },
+    // tasks() {
+    //   // return this.$store.state.tasks;
+    //   return this.activeProject?.tasks ?? [];
+    // },
     displayedTasks() {
       return [...this.tasks]
         .sort((a, b) => Number(b.priority) - Number(a.priority))
@@ -77,7 +94,8 @@ export default {
         return this.$store.state.onlyPending;
       },
       set(newValue) {
-        this.$store.commit(SET_ONLY_PENDING, newValue)
+        //this.$store.commit(SET_ONLY_PENDING, newValue)
+        this[SET_ONLY_PENDING](newValue);
       },
     },
     activeProjectId() {
@@ -86,10 +104,10 @@ export default {
   },
   methods: {
 
+    ...mapMutations([ADD_TASK, UPDATE_TASK, SET_ONLY_PENDING]),
+
     taskAdded(task) {
-      this.$store.commit(
-        ADD_TASK,
-        {
+       this[ADD_TASK]({
           projectId: this.activeProjectId,
           task: {
             id: nextTaskId++,
@@ -108,7 +126,7 @@ export default {
     },
     taskUpdated(task, changes) {
       //this.$store.commit("updateTask", Object.assign(task, changes));
-      this.$store.commit(UPDATE_TASK, {
+      this[UPDATE_TASK]({
         projectId: this.activeProjectId,
         task: Object.assign(task, changes),
       });
